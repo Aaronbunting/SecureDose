@@ -18,9 +18,11 @@ import pydeck as pdk
 
 import streamlit as st
 from datetime import datetime
-# Setting up the theme of the streamlit app 
+
 import openai
-import streamlit as st
+# Setting up the theme of the streamlit app 
+
+
 
 st.title("Advanced Bot")
 

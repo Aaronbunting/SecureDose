@@ -41,19 +41,19 @@ Copy code
 git clone [repository_link]
 Navigate to the project directory:
 
-bash
-Copy code
-cd SecureDose
-Install the required packages:
+```cd SecureDose```
 
-Copy code
-pip install -r requirements.txt
-Running the Application
+# Install the required packages:
+
+
+```pip install -r requirements.txt```
+
+# Running the Application
+
 Once all prerequisites are installed, you can run the Streamlit app with:
 
-arduino
-Copy code
-streamlit run app.py
+```streamlit run app.py```
+
 This will start the application and you can access it from your browser at localhost:8501.
 
 # Contributing

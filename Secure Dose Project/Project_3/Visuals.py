@@ -8,25 +8,13 @@ import pandas as pd
 
 # Setting up the theme of the streamlit app 
 
-import streamlit as st
 
 # Define a function for each page
 def homepage():
     import streamlit as st
     st.header("Welcome to the Homepage!")
-    st.write("This is where the main content will be.")
-    # Assuming necessary imports and theme configuration are at the top
-
-    # Title
     st.image('./ambulance.jpg', width = 700)
     st.title("Drug Authenticity Management")
-
-    def show_progress(tasks):
-        total_tasks = len(tasks)
-        completed_tasks = sum([int(task[1]) for task in tasks])
-        progress_percentage = completed_tasks / total_tasks
-        st.progress(progress_percentage)
-        return progress_percentage
 
     st.title("Bar with Role-Based Tasks")
 
@@ -34,6 +22,7 @@ def homepage():
     "Choose a role",
     ("Manufacturer", "Customer")
     )
+
 
     tasks = []
 
@@ -174,17 +163,46 @@ def analytics():
     st.sidebar.subheader('Drug Registration Over Time')
     st.sidebar.line_chart(registered_drugs)
 
+def customer_page():
+    st.title("Customer Page")
+    st.write("Content for customers goes here.")
+
+def manufacturer_page():
+    st.title("Manufacturer Page")
+    st.write("Content for manufacturers goes here.")
+
+def pharmacy_page():
+    st.title("Pharmacy Page")
+    st.write("Content for pharmacies goes here.")
+
+def feedback_page():
+    st.title("Feedback Page")
+    feedback_text = st.text_area("Please provide your feedback here...")
+    if st.button("Submit"):
+        st.write("Thank you for your feedback!")
 
 def settings():
     st.header("Settings Page")
     st.write("Adjust the settings of the app here.")
 
-# List of pages and their corresponding functions
 pages = {
     "Homepage": homepage,
+    "Customer Page": customer_page,
+    "Manufacturer Page": manufacturer_page,
+    "Pharmacy Page": pharmacy_page,
+    "Feedback Page": feedback_page,
     "Analytics": analytics,
     "Settings": settings
 }
+
+def main():
+    st.sidebar.title("Navigation")
+    page = st.sidebar.selectbox("Choose a page:", list(pages.keys()))
+
+    pages[page]()
+
+if __name__ == "__main__":
+    main()
 
 # Sidebar selectbox for navigation
 page = st.sidebar.selectbox("Choose a page:", list(pages.keys()))
@@ -281,45 +299,3 @@ if contract_address and private_key:
 else:
     st.sidebar.write("Please enter the contract address and private key to proceed.")
 
-### Progres Bar Work:
-
-import streamlit as st
-
-def show_progress(tasks):
-    total_tasks = len(tasks)
-    completed_tasks = sum([int(task[1]) for task in tasks])
-    progress_percentage = completed_tasks / total_tasks
-    st.progress(progress_percentage)
-    return progress_percentage
-
-st.title("Streamlit Progress Bar with Role-Based Tasks")
-
-role = st.selectbox(
-    "Choose a role",
-    ("Manufacturer", "Customer")
-)
-
-tasks = []
-
-if role == "Manufacturer":
-    st.subheader("Manufacturer Tasks")
-    verify_company = st.checkbox("Verify Company")
-    register_drug = st.checkbox("Register Drug")
-    transfer_drug = st.checkbox("Transfer Drug")
-    
-    tasks.append(("Verify Company", verify_company))
-    tasks.append(("Register Drug", register_drug))
-    tasks.append(("Transfer Drug", transfer_drug))
-    
-elif role == "Customer":
-    st.subheader("Customer Tasks")
-    confirmed_purchase = st.checkbox("Confirmed Purchase")
-    confirmed_drug = st.checkbox("Confirmed Drug")
-    
-    tasks.append(("Confirmed Purchase", confirmed_purchase))
-    tasks.append(("Confirmed Drug", confirmed_drug))
-
-progress_percentage = show_progress(tasks)
-
-if progress_percentage == 1.0:
-    st.write("All tasks completed! 🎉")
